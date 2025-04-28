@@ -1,2 +1,3 @@
 # GitDemo
-Coursework2aurduino
+Matlab demo repository
+
