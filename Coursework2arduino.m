@@ -49,9 +49,32 @@ for i=1:numberofsamples
 
 end 
 
-display(temperature);
-display(timereadings);
-    
+
+maxTemperature=max(temperature);
+minTemperature=min(temperature);
+AverageTemperature=mean(temperature);
+
+x=timereadings;
+y=temperature;
+
+figure;
+plot(x,y,'g','LineWidth',1.5);
+xlabel='Time in Seconds'
+ylabel='Temperature in Degrees Celcius'
+title('Temperature vs Time');
+grid on;
+
+fprintf('Data Logging intitated - 29/04/2025\n');
+fprintf('Location - Nottingham\n\n')
+
+time=numberofsamples./60;
+for n=1:numberofsamples
+    if n<60;
+        fprintf('Minute\t\n',time(n));
+        fprintf('Temperature\t%d')
+    end
+    if n<120;
+
 
 %% TASK 2 - LED TEMPERATURE MONITORING DEVICE IMPLEMENTATION [25 MARKS]
 
