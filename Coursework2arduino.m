@@ -10,7 +10,7 @@ a=arduino('COM7','Uno'); %Defining the variable that helps connect Matlab to the
 timeon=0.5; %How long the LED light will be on.
 timeoff=0.5; %How long the LED light will be off.
 numBlinks=15; %How many times it will blink.
-for i=1:numBlinks; %For loop to make this into a sequence.
+for i=1:numBlinks %For loop to make this into a sequence.
  writeDigitalPin(a,'D8',1);  %Tells matlab which pin to send power to, turning the  LED light on.
  pause (timeon);
  writeDigitalPin(a,'D8',0); %Turns LED light off.
@@ -59,8 +59,8 @@ y=temperature;
 
 figure;
 plot(x,y,'g','LineWidth',1.5);
-xlabel='Time in Seconds'
-ylabel='Temperature in Degrees Celcius'
+xlabel=('Time in Seconds');
+ylabel=('Temperature in Degrees Celcius');
 title('Temperature vs Time');
 grid on;
 
@@ -68,13 +68,18 @@ fprintf('Data Logging intitated - 29/04/2025\n');
 fprintf('Location - Nottingham\n\n')
 
 time=numberofsamples./60;
-for n=1:numberofsamples
-    if n<60;
-        fprintf('Minute\t\n',time(n));
-        fprintf('Temperature\t%d')
+for minute=0:10
+    Sample=minute*60 +1;
+    if sample <=numberofsamples
+        fprintf('Minute\t\t%d\n',minute);
+        fprintf('Temperature\t%.2f C\n\n',temperature(Sample));
     end
-    if n<120;
+end
 
+fprintf('Maximum Temperature\t%.2f C\n',maxTemperature);
+fprintf('Minimum Temperature\t%.2f C\n',minTemperature);
+fprintf('Average Temperature\t%.2f C\n\n',AverageTemperature);
+fprintf('Data Logging terminated\n');
 
 %% TASK 2 - LED TEMPERATURE MONITORING DEVICE IMPLEMENTATION [25 MARKS]
 
