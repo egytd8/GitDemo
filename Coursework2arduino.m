@@ -3,6 +3,19 @@
 
 
 %% PRELIMINARY TASK - ARDUINO AND GIT INSTALLATION [10 MARKS]
+clear a %Prevents any confusion with the variables after multiple runs.
+a=arduino('COM7','Uno'); %Defining the variable that helps connect Matlab to the
+%Arduino Uno.
+
+timeon=0.5; %How long the LED light will be on.
+timeoff=0.5; %How long the LED light will be off.
+numBlinks=15; %How many times it will blink.
+for i=1:numBlinks; %For loop to make this into a sequence.
+ writeDigitalPin(a,'D8',1);  %Tells matlab which pin to send power to, turning the  LED light on.
+ pause (timeon);
+ writeDigitalPin(a,'D8',0); %Turns LED light off.
+ pause (timeoff);
+end
 
 
 
