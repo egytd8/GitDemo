@@ -70,7 +70,7 @@ fprintf('Location - Nottingham\n\n')
 time=numberofsamples./60;
 for minute=0:10
     Sample=minute*60 +1;
-    if sample <=numberofsamples
+    if Sample <=numberofsamples
         fprintf('Minute\t\t%d\n',minute);
         fprintf('Temperature\t%.2f C\n\n',temperature(Sample));
     end
