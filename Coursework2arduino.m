@@ -23,7 +23,35 @@ end
 
 %% TASK 1 - READ TEMPERATURE DATA, PLOT, AND WRITE TO A LOG FILE [20 MARKS]
 
-% Insert answers here
+duration=600; %Time in seonds of the data collecting.
+timeinterval=1;
+numberofsamples=duration/timeinterval; %Defines how often the readings will be taken.
+
+V0=0.5; %Voltage at 0 degrees, taken from the sensor sheet.
+Temp_c=0.01; %Temperature coefficient of the temperature sensor.
+
+timereadings=zeros(numberofsamples,1); %Stores information of each reading in its own seperate array.
+voltage=zeros(numberofsamples,1);
+temperature=zeros(numberofsamples,1);
+
+for i=1:numberofsamples
+   voltage(i)=readVoltage(a,'A2');
+   
+   temperature(i)=(voltage(i)-V0)/Temp_c;
+
+   timereadings(i)=(i-1)*timeinterval;
+
+    if i<numberofsamples
+        pause(timeinterval-0.02);
+            
+    end 
+  
+
+end 
+
+display(temperature);
+display(timereadings);
+    
 
 %% TASK 2 - LED TEMPERATURE MONITORING DEVICE IMPLEMENTATION [25 MARKS]
 
