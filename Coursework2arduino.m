@@ -22,11 +22,11 @@ end
 
 
 %% TASK 1 - READ TEMPERATURE DATA, PLOT, AND WRITE TO A LOG FILE [20 MARKS]
-
+clear a;
 duration=600; %Time in seonds of the data collecting.
 timeinterval=1;
 numberofsamples=duration/timeinterval; %Defines how often the readings will be taken.
-
+a=arduino('COM7','Uno');
 V0=0.5; %Voltage at 0 degrees, taken from the sensor sheet.
 Temp_c=0.01; %Temperature coefficient of the temperature sensor.
 
@@ -66,6 +66,7 @@ grid on;
 
 fprintf('Data Logging intitated - 29/04/2025\n');
 fprintf('Location - Nottingham\n\n')
+fprintf('--------------------------------------------------------------\n');
 
 time=numberofsamples./60;
 for minute=0:10
@@ -76,10 +77,45 @@ for minute=0:10
     end
 end
 
+fprintf('--------------------------------------------------------------\n');
 fprintf('Maximum Temperature\t%.2f C\n',maxTemperature);
 fprintf('Minimum Temperature\t%.2f C\n',minTemperature);
 fprintf('Average Temperature\t%.2f C\n\n',AverageTemperature);
 fprintf('Data Logging terminated\n');
+fprintf('--------------------------------------------------------------\n');
+
+% Opening the file to display the box. 
+fileID = fopen('cabin_temperature.txt', 'w');
+
+fprintf(fileID, 'Data Logging initiated - 29/04/2025\n');
+fprintf(fileID, 'Location - Nottingham\n\n');
+fprintf(fileID, '--------------------------------------------------------------\n');
+
+% Log temperature every minute
+for minute = 0:10
+    Sample = minute * 60 + 1;
+    if Sample <= numberofsamples
+        fprintf(fileID, 'Minute\t\t%d\n', minute);
+        fprintf(fileID, 'Temperature\t%.2f C\n\n', temperature(Sample));
+    end
+end
+
+% Write summary statistics
+fprintf(fileID, '--------------------------------------------------------------\n');
+fprintf(fileID, 'Maximum Temperature\t%.2f C\n', maxTemperature);
+fprintf(fileID, 'Minimum Temperature\t%.2f C\n', minTemperature);
+fprintf(fileID, 'Average Temperature\t%.2f C\n\n', AverageTemperature);
+fprintf(fileID, 'Data Logging terminated\n');
+fprintf(fileID, '--------------------------------------------------------------\n');
+
+% Close the file
+fclose(fileID);
+
+v = readVoltage(a, 'A2');
+fprintf('Voltage from sensor: %.2f V\n', v);
+
+
+
 
 %% TASK 2 - LED TEMPERATURE MONITORING DEVICE IMPLEMENTATION [25 MARKS]
 
